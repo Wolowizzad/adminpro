@@ -11,11 +11,13 @@ import { Graphs1Component } from './pages/graphs1/graphs1.component';
 import { PromisesComponent } from './pages/promises/promises.component';
 import { AccountSettingsComponent } from './pages/account-settings/account-settings.component';
 import { RxjsComponent } from './pages/rxjs/rxjs.component';
+import { LoginGuardGuard } from './services/service.index';
 
 
 const routes: Routes = [
   {
     path: '', component: PagesComponent,
+    canActivate: [LoginGuardGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent, data: { title: 'Dashboard' } },
       { path: 'progress', component: ProgressComponent,  data: { title: 'Progress' } },
@@ -26,8 +28,8 @@ const routes: Routes = [
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     ]
   },
-  { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
   { path: '**', component: NofoundComponent }
 ];
 
