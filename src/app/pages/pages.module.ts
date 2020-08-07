@@ -13,12 +13,16 @@ import { ProgressComponent } from './progress/progress.component';
 import { Graphs1Component } from './graphs1/graphs1.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
+// Pipe module
+import { PipesModule } from '../pipes/pipes.module';
+
 //temporal
 import { IncreaserComponent } from '../components/increaser/increaser.component';
 import { FormsModule } from '@angular/forms';
 import { DoughnutGraphComponent } from '../components/doughnut-graph/doughnut-graph.component';
 import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
     declarations: [
@@ -30,7 +34,8 @@ import { RxjsComponent } from './rxjs/rxjs.component';
         DoughnutGraphComponent,
         AccountSettingsComponent,
         PromisesComponent,
-        RxjsComponent
+        RxjsComponent,
+        ProfileComponent
     ],
     imports: [
         CommonModule,
@@ -38,6 +43,7 @@ import { RxjsComponent } from './rxjs/rxjs.component';
         AppRoutingModule,
         FormsModule,
         ChartsModule,
+        PipesModule
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA,

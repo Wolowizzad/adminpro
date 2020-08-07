@@ -1,0 +1,51 @@
+<div class="row aimated FadeIn">
+    <div class="col-lg-5">
+        <div class="card">
+            <div class="card-body" align="center">
+                <h4 class="card-title">Update profile picture</h4>
+                <h6 class="card-subtitle">Change name or email</h6>
+                <img *ngIf="!imageTemp" src="{{ user.img | image }}" class="w150">
+                <img *ngIf="imageTemp" src="{{imageTemp}}" class="w150">
+                <input type="file" (change)="imageSelection($event.target.files[0])">
+                <br>
+                <br>
+                <button (click)="changeImage()" [disabled]="!uploadImage" type="button" class="btn btn-success waves-effect waves-light m-r-10">
+                    <i class="fa fa-save"></i>
+                    Upload
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-7">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Update profile information</h4>
+                <h6 class="card-subtitle">Change name or email</h6>
+                <form NgNativeValidate #f="ngForm" (ngSubmit)="save(f.value)" class="form p-t-20">
+                    <div class="form-group">
+                        <label for="exampleInputuname2">User Name</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                            <input [(ngModel)]="user.nombre" name="nombre" type="text" class="form-control" placeholder="Username" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail2">Email address</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
+                            <input [(ngModel)]="user.email" [disabled]="user.google" name="email" type="email" class="form-control" placeholder="Enter email">
+                        </div>
+                    </div>
+                    <div class="text-left">
+                        <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">
+                            <i class="fa fa-save"></i>
+                            Update
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

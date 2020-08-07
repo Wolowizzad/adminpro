@@ -7,14 +7,14 @@ export class SidebarService {
 
   menu: any = [
     {
-      titulo: 'Principal',
+      title: 'Principal',
       icono: 'mdi mdi-gauge',
       submenu: [
-        { titulo: 'Dashboard', url: '/dashboard' },
-        { titulo: 'ProgressBar', url: '/progress' },
-        { titulo: 'Grapghs', url: '/graphs1' },
-        { titulo: 'Promises', url: '/promises' },
-        { titulo: 'RxJs', url: '/rxjs' }
+        { title: 'Dashboard', url: '/dashboard' },
+        { title: 'ProgressBar', url: '/progress' },
+        { title: 'Grapghs', url: '/graphs1' },
+        { title: 'Promises', url: '/promises' },
+        { title: 'RxJs', url: '/rxjs' }
       ]
     }
   ];

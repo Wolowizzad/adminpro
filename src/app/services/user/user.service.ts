@@ -5,6 +5,7 @@ import { URL_SERVICES } from 'src/app/config/config';
 import { map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { UploadFileService } from '../upload-file/upload-file.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,10 @@ export class UserService {
   user: User;
   token: string;
 
-  constructor(public http: HttpClient, public router: Router) {
+  constructor(public http: HttpClient,
+    public router: Router,
+    public _uploadFileService: UploadFileService) {
+
     this.getStorage();
   }
 
@@ -22,7 +26,7 @@ export class UserService {
     return (this.token.length > 1) ? true : false;
   }
 
-  getStorage(){
+  getStorage() {
 
     if (localStorage.getItem('token')) {
       this.token = localStorage.getItem('token');
@@ -53,7 +57,7 @@ export class UserService {
       }))
   }
 
-  logout(){
+  logout() {
 
     this.token = '';
     this.user = null;
@@ -72,6 +76,7 @@ export class UserService {
 
     let url = URL_SERVICES + '/login';
     return this.http.post(url, user).pipe(map((res: any) => {
+
       this.setStorage(res.id, res.token, res.usuario);
       return true;
     }));
@@ -81,15 +86,64 @@ export class UserService {
 
     let url = URL_SERVICES + '/usuario';
     return this.http.post(url, user).pipe(map((res: any) => {
+
       Swal.fire({
-        title: 'Usuario creado!',
+        title: 'User Created!',
         text: user.email,
         icon: 'success',
         timer: 2500,
         showConfirmButton: false
-      })
+      });
       return res.user;
     }));
+
+  }
+
+  updateUser(user: User) {
+
+    let url = URL_SERVICES + '/usuario/' + user._id;
+    url += '?token=' + this.token;
+    console.log(url);
+    return this.http.put(url, user).pipe(map((res: any) => {
+
+      this.setStorage(res.usuario._id, this.token, res.usuario);
+
+      Swal.fire({
+        title: 'User Updated!',
+        text: user.email,
+        icon: 'success',
+        timer: 2500,
+        showConfirmButton: false
+      });
+
+      return true;
+
+    }));
+
+  }
+
+  changeImage(file: File, id: string) {
+
+    this._uploadFileService.uploadFile(file, 'usuarios', id)
+    .then((res: any) => {
+      
+      this.user.img = res.usuario.img;
+
+      Swal.fire({
+        title: 'Picture Updated!',
+        icon: 'success',
+        timer: 2500,
+        showConfirmButton: false
+      });
+
+      this.setStorage(id, this.token, this.user);
+
+    })
+    .catch(res => {
+
+      console.error(res);
+
+    });
 
   }
 
