@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 //Modulos
 import { PagesModule } from './pages/pages.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //Componentes
 import { AppComponent } from './app.component';
@@ -17,6 +18,8 @@ import { ServiceModule } from './services/service.module';
 
 //Temporal
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+
 
 
 @NgModule({
@@ -31,7 +34,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    ServiceModule
+    ServiceModule,
+    BrowserAnimationsModule
   ],
   providers: [
   ],

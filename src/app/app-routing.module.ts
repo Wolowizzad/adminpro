@@ -13,6 +13,9 @@ import { AccountSettingsComponent } from './pages/account-settings/account-setti
 import { RxjsComponent } from './pages/rxjs/rxjs.component';
 import { LoginGuardGuard } from './services/service.index';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { pathToFileURL } from 'url';
+import { UsersComponent } from './pages/users/users.component';
+import { LoadingComponent } from './shared/loading/loading.component';
 
 
 const routes: Routes = [
@@ -27,9 +30,13 @@ const routes: Routes = [
       { path: 'rxjs', component: RxjsComponent,  data: { title: 'RxJs' } },
       { path: 'account-settings', component: AccountSettingsComponent,  data: { title: 'Theme Settings' } },
       { path: 'profile', component: ProfileComponent,  data: { title: 'User Profile' } },
+      //Matnenimiento
+      { path: 'usuarios', component: UsersComponent,  data: { title: 'User Maintenance' } },
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     ]
   },
+
+  { path: 'test', component: LoadingComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: '**', component: NofoundComponent }

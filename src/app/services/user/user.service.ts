@@ -103,10 +103,13 @@ export class UserService {
 
     let url = URL_SERVICES + '/usuario/' + user._id;
     url += '?token=' + this.token;
-    console.log(url);
+
     return this.http.put(url, user).pipe(map((res: any) => {
 
-      this.setStorage(res.usuario._id, this.token, res.usuario);
+      if (user._id === this.user._id) {
+        this.setStorage(res.usuario._id, this.token, res.usuario);
+      }
+
 
       Swal.fire({
         title: 'User Updated!',
@@ -125,26 +128,51 @@ export class UserService {
   changeImage(file: File, id: string) {
 
     this._uploadFileService.uploadFile(file, 'usuarios', id)
-    .then((res: any) => {
-      
-      this.user.img = res.usuario.img;
+      .then((res: any) => {
 
-      Swal.fire({
-        title: 'Picture Updated!',
-        icon: 'success',
-        timer: 2500,
-        showConfirmButton: false
+        this.user.img = res.usuario.img;
+
+        Swal.fire({
+          title: 'Picture Updated!',
+          icon: 'success',
+          timer: 2500,
+          showConfirmButton: false
+        });
+
+        this.setStorage(id, this.token, this.user);
+
+      })
+      .catch(res => {
+
+        console.error(res);
+
       });
 
-      this.setStorage(id, this.token, this.user);
+  }
 
-    })
-    .catch(res => {
+  loadUsers(desde: number = 0) {
 
-      console.error(res);
+    let url = URL_SERVICES + '/usuario?desde=' + desde;
 
-    });
+    return this.http.get(url);
 
+  }
+
+  seatchUSers(term: string) {
+
+    let url = URL_SERVICES + '/busqueda/coleccion/usuarios/' + term;
+    return this.http.get(url)
+      .pipe(map((resp: any) => resp.usuarios));
+
+  }
+
+  deleteUser(id: string){
+    
+    let url = URL_SERVICES + '/usuario/' + id;
+    url += '?token=' + this.token;
+
+    return this.http.delete(url);
+    
   }
 
 }
